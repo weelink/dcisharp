@@ -2,7 +2,7 @@
 using System.Reflection;
 using Castle.DynamicProxy;
 
-namespace dcisharp.Experiments.Mapping
+namespace dcisharp.Experiments
 {
     public class ContextMappingProxyGenerationHook<TData, TContext> : IProxyGenerationHook
     {

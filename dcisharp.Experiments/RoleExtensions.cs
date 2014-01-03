@@ -1,6 +1,6 @@
 ﻿using Castle.DynamicProxy;
 
-namespace dcisharp.Experiments.Mapping
+namespace dcisharp.Experiments
 {
     public static class RoleExtensions
     {

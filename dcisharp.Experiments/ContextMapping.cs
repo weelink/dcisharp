@@ -4,26 +4,26 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace dcisharp.Experiments.Mapping
+namespace dcisharp.Experiments
 {
-    public class ContextMapping<TData, TContext>
+    public class ContextMapping<TData, TRole>
     {
         public ContextMapping()
         {
             Mappings = new Dictionary<object, object>();
         }
 
-        public ContextMapping<TData, TContext> Map<T>(Expression<Func<TContext, T>> destination, Expression<Func<TData, T>> source)
+        public ContextMapping<TData, TRole> Map<T>(Expression<Func<TRole, T>> destination, Expression<Func<TData, T>> source)
         {
             return Map(source.Body, destination.Body);
         }
 
-        public ContextMapping<TData, TContext> Map(Expression<Action<TContext>> destination, Expression<Action<TData>> source)
+        public ContextMapping<TData, TRole> Map(Expression<Action<TRole>> destination, Expression<Action<TData>> source)
         {
             return Map(source.Body, destination.Body);
         }
 
-        private ContextMapping<TData, TContext> Map(Expression sourceExpression, Expression destinationExpression)
+        private ContextMapping<TData, TRole> Map(Expression sourceExpression, Expression destinationExpression)
         {
             var sourceProperty = GetMapping(sourceExpression);
             var destinationProperty = GetMapping(destinationExpression);
