@@ -46,7 +46,6 @@
     <Compile Include="Mapping\AccountToTransferMoneySourceAdapter.cs" />
     <Compile Include="ContextMapping.cs" />
     <Compile Include="ProxyInterceptor.cs" />
-    <Compile Include="ContextMappingProxyGenerationHook.cs" />
     <Compile Include="Mapping\LedgerEntry.cs" />
     <Compile Include="Mapping\MoneyTransferContext.cs" />
     <Compile Include="Role.cs" />
