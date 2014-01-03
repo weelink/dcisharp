@@ -6,12 +6,12 @@ namespace dcisharp.Experiments
     {
         private static readonly ProxyGenerator ProxyGenerator = new ProxyGenerator();
 
-        public static TDestination Proxy<TSource, TDestination>(this TSource source, ContextMapping<TSource, TDestination> context) where TDestination : class
+        public static TRole Proxy<TRole>(this object source, ContextMapping<TRole> context) where TRole : class
         {
-            var proxyGenerationHook = new ContextMappingProxyGenerationHook<TSource, TDestination>(context);
+            var proxyGenerationHook = new ContextMappingProxyGenerationHook<TRole>(context);
             var options = new ProxyGenerationOptions(proxyGenerationHook);
-            var interceptor = new ProxyInterceptor<TSource, TDestination>(context, source);
-            var proxy = ProxyGenerator.CreateInterfaceProxyWithoutTarget<TDestination>(options, interceptor);
+            var interceptor = new ProxyInterceptor<TRole>(context, source);
+            var proxy = ProxyGenerator.CreateInterfaceProxyWithoutTarget<TRole>(options, interceptor);
 
             return proxy;
         }

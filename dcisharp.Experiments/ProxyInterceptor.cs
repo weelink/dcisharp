@@ -2,21 +2,21 @@
 
 namespace dcisharp.Experiments
 {
-    public class ProxyInterceptor<TData, TContext> : IInterceptor
+    public class ProxyInterceptor<TRole> : IInterceptor
     {
-        public ProxyInterceptor(ContextMapping<TData, TContext> contextMapping, TData data)
+        public ProxyInterceptor(ContextMapping<TRole> contextMapping, object target)
         {
             ContextMapping = contextMapping;
-            Data = data;
+            Target = target;
         }
 
         public void Intercept(IInvocation invocation)
         {
             var isProperty = invocation.Method.Name.StartsWith("get_");
-            invocation.ReturnValue = isProperty ? ContextMapping.Get(Data, invocation.Method) : ContextMapping.Do(Data, invocation.Method, invocation.Arguments);
+            invocation.ReturnValue = isProperty ? ContextMapping.Get(Target, invocation.Method) : ContextMapping.Do(Target, invocation.Method, invocation.Arguments);
         }
 
-        private TData Data { get; set; }
-        private ContextMapping<TData, TContext> ContextMapping { get; set; }
+        private object Target { get; set; }
+        private ContextMapping<TRole> ContextMapping { get; set; }
     }
 }

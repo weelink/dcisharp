@@ -1,7 +1,7 @@
 ﻿namespace dcisharp.Experiments
 {
-    public interface Role<TData, TContext>
+    public interface Role<TRole>
     {
-        void MapContext(ContextMapping<TData, TContext> mapping);
+        void MapContext(ContextMapping<TRole> mapping);
     }
 }

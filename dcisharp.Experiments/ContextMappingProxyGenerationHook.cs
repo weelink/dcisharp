@@ -4,9 +4,9 @@ using Castle.DynamicProxy;
 
 namespace dcisharp.Experiments
 {
-    public class ContextMappingProxyGenerationHook<TData, TContext> : IProxyGenerationHook
+    public class ContextMappingProxyGenerationHook<TRole> : IProxyGenerationHook
     {
-        public ContextMappingProxyGenerationHook(ContextMapping<TData, TContext> contextMapping)
+        public ContextMappingProxyGenerationHook(ContextMapping<TRole> contextMapping)
         {
             ContextMapping = contextMapping;
         }
@@ -24,6 +24,6 @@ namespace dcisharp.Experiments
             return ContextMapping.IsMapped(methodInfo);
         }
 
-        private ContextMapping<TData, TContext> ContextMapping { get; set; }
+        private ContextMapping<TRole> ContextMapping { get; set; }
     }
 }

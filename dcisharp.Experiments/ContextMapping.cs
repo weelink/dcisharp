@@ -6,24 +6,24 @@ using System.Reflection;
 
 namespace dcisharp.Experiments
 {
-    public class ContextMapping<TData, TRole>
+    public class ContextMapping<TRole>
     {
         public ContextMapping()
         {
             Mappings = new Dictionary<object, object>();
         }
 
-        public ContextMapping<TData, TRole> Map<T>(Expression<Func<TRole, T>> destination, Expression<Func<TData, T>> source)
+        public ContextMapping<TRole> Map<T>(Expression<Func<TRole, T>> destination, Expression<Func<T>> source)
         {
             return Map(source.Body, destination.Body);
         }
 
-        public ContextMapping<TData, TRole> Map(Expression<Action<TRole>> destination, Expression<Action<TData>> source)
+        public ContextMapping<TRole> Map(Expression<Action<TRole>> destination, Expression<Action> source)
         {
             return Map(source.Body, destination.Body);
         }
 
-        private ContextMapping<TData, TRole> Map(Expression sourceExpression, Expression destinationExpression)
+        private ContextMapping<TRole> Map(Expression sourceExpression, Expression destinationExpression)
         {
             var sourceProperty = GetMapping(sourceExpression);
             var destinationProperty = GetMapping(destinationExpression);
@@ -58,7 +58,7 @@ namespace dcisharp.Experiments
             return methodInfo;
         }
 
-        public object Get(TData source, MethodInfo expression)
+        public object Get(object source, MethodInfo expression)
         {
             var x = (Property)GetMapping(expression);
             var myClass1 = (Property)Mappings[x];
@@ -66,7 +66,7 @@ namespace dcisharp.Experiments
             return z.GetValue(source);
         }
 
-        public object Do(TData source, MethodInfo expression, object[] arguments)
+        public object Do(object source, MethodInfo expression, object[] arguments)
         {
             var y = Mappings.Keys.OfType<Method>().Single(m => m.MemberInfo == expression);
             var myClass1 = (Method)Mappings[y];

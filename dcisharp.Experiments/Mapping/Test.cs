@@ -25,10 +25,10 @@ namespace dcisharp.Experiments.Mapping
                 }
             };
 
-            var sourceMapping = new ContextMapping<Account, TransferMoneySource>();
+            var sourceMapping = new ContextMapping<TransferMoneySource>();
             sourceAccount.MapContext(sourceMapping);
 
-            var destinationMapping = new ContextMapping<Account, TransferMoneyDestination>();
+            var destinationMapping = new ContextMapping<TransferMoneyDestination>();
             destinationAccount.MapContext(destinationMapping);
 
             AccountToTransferMoneySourceAdapter adaptedSource = sourceAccount;

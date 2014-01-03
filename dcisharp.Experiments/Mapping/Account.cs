@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace dcisharp.Experiments.Mapping
 {
-    public class Account : Role<Account, TransferMoneySource>, Role<Account, TransferMoneyDestination>
+    public class Account : Role<TransferMoneySource>, Role<TransferMoneyDestination>
     {
         public Account()
         {
@@ -28,18 +28,18 @@ namespace dcisharp.Experiments.Mapping
             LedgerEntries.Add(new LedgerEntry("Withdrawing", -amount));
         }
 
-        public void MapContext(ContextMapping<Account, TransferMoneySource> mapping)
+        public void MapContext(ContextMapping<TransferMoneySource> mapping)
         {
             mapping
-                .Map(x => x.Withdraw(0), x => x.DecreaseBalance(0))
-                .Map(x => x.SourceBalance, x => x.Balance);
+                .Map(x => x.Withdraw(0), () => DecreaseBalance(0))
+                .Map(x => x.SourceBalance, () => Balance);
         }
 
-        public void MapContext(ContextMapping<Account, TransferMoneyDestination> mapping)
+        public void MapContext(ContextMapping<TransferMoneyDestination> mapping)
         {
             mapping
-                .Map(x => x.Deposit(0), x => x.IncreaseBalance(0))
-                .Map(x => x.DestinationBalance, x => x.Balance);
+                .Map(x => x.Deposit(0), () => IncreaseBalance(0))
+                .Map(x => x.DestinationBalance, () => Balance);
         }
 
         public override string ToString()
